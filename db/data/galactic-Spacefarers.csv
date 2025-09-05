@@ -1,0 +1,5 @@
+ID,firstName,lastName,email,stardustCollection,wormholeNavigationSkill,originPlanet,spacesuitColor,department_ID,position_ID,adventureStatus
+1,Zara,Stardust,zara@galaxy.com,500,7,Earth,Gold,1,3,Active
+2,Orion,Nebula,orion@cosmos.net,300,5,Mars,Silver,2,2,Preparing  
+3,Luna,Void,luna@void.org,800,9,Planet X,Purple,3,1,Active
+4,Nova,Star,nova@star.com,150,3,Planet Y,Blue,1,1,Preparing

@@ -1,0 +1,1 @@
+using GalacticSpacefarerService as service from '../../srv/galactic-service';
