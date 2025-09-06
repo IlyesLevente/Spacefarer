@@ -4,17 +4,39 @@ module.exports = cds.service.impl(async function() {
   
   const { Spacefarers } = this.entities;
 
+  // Planet-based access control for READ operations
+  this.before('READ', Spacefarers, async (req) => {
+    const userPlanet = req.user?.attr?.planet;
+    console.log(`🌍 PLANET ACCESS CHECK: User ${req.user?.id} from planet ${userPlanet}`);
+
+    if (userPlanet === 'Planet X') {
+      // Build a filter: originPlanet != 'Planet Y'
+      const blockFilter = [
+        { ref: ['originPlanet'] }, '!=', { val: 'Planet Y' }
+      ];
+
+      if (req.query.SELECT.where) {
+        req.query.SELECT.where = [
+          '(', ...req.query.SELECT.where, ')',
+          'and', ...blockFilter
+        ];
+      } else {
+        req.query.SELECT.where = blockFilter;
+      }
+
+      console.log(`🛡️ Planet X detected → blocking access to Planet Y spacefarers`);
+    } else {
+      console.log(`✅ No planet-based restrictions applied`);
+    }
+  });
+
     this.before(['CREATE', 'UPDATE', 'DELETE'], Spacefarers, async (req) => {
-    console.log('🛡️  ENHANCED SECURITY: Checking permissions for sensitive operation');
     
     const user = req.user;
     const operation = req.event;
-
-    console.log(`User: ${JSON.stringify(user)}`);
     
     // Check role-based permissions
     const hasAdminRole = user.is('CosmicAdministrator');
-    console.log(`Has Admin Role: ${hasAdminRole}`);
     const hasManagerRole = user.is('SpacefarerManager'); 
     const hasRecruiterRole = user.is('SpacefarerRecruiter');
     

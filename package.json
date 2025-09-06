@@ -17,23 +17,33 @@
         "users": {
           "luke.skywalker@galaxy.com": {
             "password": "force123",
-            "roles": ["CosmicAdministrator"]
+            "roles": ["CosmicAdministrator"],
+            "attr": { "planet": "Planet Y" }
+          },
+          "leia.skywalker@galaxy.com": {
+            "password": "force123",
+            "roles": ["CosmicAdministrator"],
+            "attr": { "planet": "Planet X" }
           },
           "han.solo@galaxy.com": {
             "password": "millennium",
-            "roles": ["SpacefarerManager"]
+            "roles": ["SpacefarerManager"],
+            "attr": { "planet": "Corellia" }
           },
           "leia.organa@galaxy.com": {
             "password": "rebellion",
-            "roles": ["SpacefarerRecruiter"]
+            "roles": ["SpacefarerRecruiter"],
+            "attr": { "planet": "Alderaan" }
           },
           "chewbacca@galaxy.com": {
-            "password": "wookie123", 
-            "roles": ["SpacefarerViewer"]
+            "password": "wookie123",
+            "roles": ["SpacefarerViewer"],
+            "attr": { "planet": "Kashyyyk" }
           },
           "cosmic_invader@deathstar.evil": {
             "password": "darth123",
-            "roles": ["EvilInvader"]
+            "roles": ["EvilInvader"],
+            "attr": { "planet": "DeathStar" }
           }
         }
       },
