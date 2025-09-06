@@ -31,13 +31,6 @@ entity Positions : cuid {
   spacefarers         : Association to many Spacefarers on spacefarers.position = $self;
 }
 
-entity Users : cuid {
-  username : String(100) not null;
-  password : String;
-  roles    : String; 
-  planet   : String;
-}
-
 annotate GalacticSpacefarerService.Spacefarers with @(
   UI: {
     HeaderInfo: {
@@ -46,10 +39,12 @@ annotate GalacticSpacefarerService.Spacefarers with @(
       Title: { Value: firstName }
     },
     SelectionFields: [ 
-      firstName, 
-      lastName, 
-      originPlanet, 
-      adventureStatus
+      { Value: firstName, Label: 'First Name' },
+      { Value: lastName, Label: 'Last Name' },
+      { Value: originPlanet, Label: 'Origin Planet' },
+      { Value: adventureStatus, Label: 'Status' },
+      { Value: department.name, Label: 'Department' },
+      { Value: position.title, Label: 'Position' }
     ],
     LineItem: [
       { Value: firstName, Label: 'First Name' },
@@ -57,39 +52,52 @@ annotate GalacticSpacefarerService.Spacefarers with @(
       { Value: originPlanet, Label: 'Origin Planet' },
       { Value: spacesuitColor, Label: 'Spacesuit Color' },
       { Value: stardustCollection, Label: 'Stardust Collection' },
-      { Value: adventureStatus, Label: 'Status' }
-      // The incorrect DataFieldForAction for 'Create' is removed.
+      { Value: adventureStatus, Label: 'Status' },
+      { Value: department.name, Label: 'Department' },
+      { Value: position.title, Label: 'Position' }
     ],
     Facets: [
       {
-        $Type: 'UI.ReferenceFacet',
-        Target: '@UI.FieldGroup#PersonalInfo',
-        Label: 'Personal Information'
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Personal Information',
+        Target : '@UI.FieldGroup#PersonalInfo'
       },
       {
-        $Type: 'UI.ReferenceFacet', 
-        Target: '@UI.FieldGroup#CosmicInfo',
-        Label: 'Cosmic Attributes'
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Cosmic Attributes',
+        Target : '@UI.FieldGroup#CosmicInfo'
+      },
+      {
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Assignments',
+        Target : '@UI.FieldGroup#Assignments'
       }
     ],
     FieldGroup#PersonalInfo: {
       Data: [
-        { Value: firstName },
-        { Value: lastName },
-        { Value: email },
-        { Value: originPlanet }
+        { Value: firstName, Label: 'First Name' },
+        { Value: lastName, Label: 'Last Name' },
+        { Value: email, Label: 'Email Address' },
+        { Value: originPlanet, Label: 'Origin Planet' }
       ]
     },
     FieldGroup#CosmicInfo: {
       Data: [
-        { Value: stardustCollection },
-        { Value: wormholeNavigationSkill },
-        { Value: spacesuitColor },
-        { Value: adventureStatus }
+        { Value: stardustCollection, Label: 'Stardust Collection' },
+        { Value: wormholeNavigationSkill, Label: 'Wormhole Navigation Skill' },
+        { Value: spacesuitColor, Label: 'Spacesuit Color' },
+        { Value: adventureStatus, Label: 'Status' }
+      ]
+    },
+    FieldGroup#Assignments: {
+      Data: [
+        { Value: department.name, Label: 'Department' },
+        { Value: position.title, Label: 'Position' }
       ]
     }
   }
 );
+
 
 // Annotate the CAPABILITIES for the same entity set
 annotate GalacticSpacefarerService.Spacefarers with @(
