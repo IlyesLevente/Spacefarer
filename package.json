@@ -12,6 +12,31 @@
   },
   "cds": {
     "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "luke.skywalker@galaxy.com": {
+            "password": "force123",
+            "roles": ["CosmicAdministrator"]
+          },
+          "han.solo@galaxy.com": {
+            "password": "millennium",
+            "roles": ["SpacefarerManager"]
+          },
+          "leia.organa@galaxy.com": {
+            "password": "rebellion",
+            "roles": ["SpacefarerRecruiter"]
+          },
+          "chewbacca@galaxy.com": {
+            "password": "wookie123", 
+            "roles": ["SpacefarerViewer"]
+          },
+          "cosmic_invader@deathstar.evil": {
+            "password": "darth123",
+            "roles": ["EvilInvader"]
+          }
+        }
+      },
       "db": {
         "kind": "sqlite",
         "credentials": {

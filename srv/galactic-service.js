@@ -3,11 +3,45 @@ const cds = require('@sap/cds');
 module.exports = cds.service.impl(async function() {
   
   const { Spacefarers } = this.entities;
+
+    this.before(['CREATE', 'UPDATE', 'DELETE'], Spacefarers, async (req) => {
+    console.log('🛡️  ENHANCED SECURITY: Checking permissions for sensitive operation');
+    
+    const user = req.user;
+    const operation = req.event;
+
+    console.log(`User: ${JSON.stringify(user)}`);
+    
+    // Check role-based permissions
+    const hasAdminRole = user.is('CosmicAdministrator');
+    console.log(`Has Admin Role: ${hasAdminRole}`);
+    const hasManagerRole = user.is('SpacefarerManager'); 
+    const hasRecruiterRole = user.is('SpacefarerRecruiter');
+    
+    switch (operation) {
+      case 'DELETE':
+        if (!hasAdminRole) {
+          req.error(403, '🚫 Only Cosmic Administrators can delete spacefarers!');
+        }
+        break;
+        
+      case 'UPDATE':
+        if (!hasAdminRole && !hasManagerRole) {
+          req.error(403, '🚫 Only Managers and Administrators can update spacefarer records!');
+        }
+        break;
+        
+      case 'CREATE':
+        if (!hasAdminRole && !hasManagerRole && !hasRecruiterRole) {
+          req.error(403, '🚫 Insufficient permissions to recruit new spacefarers!');
+        }
+        break;
+    }
+    
+    console.log(`✅ Permission granted for ${operation} operation`);
+  });
   
-  // Task 3: Cosmic Event Handlers
-  
-  // @Before event: Prepare spacefaring candidate
-  this.before(['CREATE', 'UPDATE'], Spacefarers, async (req) => {
+    this.before(['CREATE', 'UPDATE'], Spacefarers, async (req) => {
     const spacefarer = req.data;
     
     console.log('🌟 COSMIC PREPARATION: Preparing spacefarer for journey');
@@ -53,7 +87,6 @@ module.exports = cds.service.impl(async function() {
   this.after('CREATE', Spacefarers, async (spacefarer, req) => {
     console.log('🌟 COSMIC NOTIFICATION: Sending welcome message');
     
-    // Simulate sending cosmic email notification
     const message = `🚀 Welcome to the cosmic adventure, ${spacefarer.firstName}! 
     Your journey from ${spacefarer.originPlanet} begins now. 
     Your ${spacefarer.spacesuitColor} spacesuit suits you perfectly!
@@ -66,12 +99,6 @@ module.exports = cds.service.impl(async function() {
     console.log('✨ Cosmic notification successfully delivered!');
   });
   
-  // Planetary security: Planet X/Y restriction (disabled for local development)
-  /* 
-  this.before('READ', Spacefarers, async (req) => {
-    // Commented out for local development
-  });
-  */
-  
-  console.log('🌟 Galactic Spacefarer Service is operational!');
+  console.log('🌟 Galactic Spacefarer Service is operational and secured!');
+  console.log('🛡️  Cosmic Defense Systems: ACTIVE');
 });
