@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Spacefarer Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #e0e0ff;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* --- Starfield Background --- */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* --- Crawl Animation --- */
+        .crawl-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200vh;
+            perspective: 800px; /* Restored for 3D effect */
+            z-index: 10;
+        }
+        .crawl-content {
+            position: absolute;
+            top: 100%;
+            width: 90%;
+            left: 5%;
+            transform-origin: 50% 100%;
+            color: #ffc909;
+            text-align: justify;
+            animation: crawl 60s linear forwards; /* Moderated speed */
+        }
+        @keyframes crawl {
+            0% { top: 100%; transform: rotateX(20deg) translateZ(0); }
+            100% { top: -150%; transform: rotateX(25deg) translateZ(-4000px); } /* Restored 3D transform */
+        }
+        .crawl-content h1, .crawl-content h2 {
+            text-align: center;
+        }
+        .crawl-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5em; /* Moderated size */
+            margin-bottom: 0.5em;
+        }
+        .crawl-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em; /* Moderated size */
+            margin-bottom: 1em;
+        }
+        .crawl-content p {
+            font-size: 2.2rem; /* Moderated size */
+            line-height: 1.5;
+            margin-bottom: 1.5em;
+        }
+
+        /* --- Button --- */
+        .start-button-container {
+            position: fixed;
+            bottom: 5%;
+            width: 100%;
+            text-align: center;
+            z-index: 30;
+            opacity: 1;
+        }
+        .btn-enter {
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(108, 125, 255, 0.5);
+            background: #4a5a90;
+        }
+        .btn-enter:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 25px rgba(108, 125, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Star background container -->
+    <div class="starfield" id="star-container"></div>
+
+    <!-- Scrolling Text -->
+    <div class="crawl-container">
+        <div class="crawl-content">
+            <h1>GALACTIC SPACEFARER</h1>
+            <h2>Episode IV</h2>
+            <h2>A NEW RECRUIT</h2>
+            <p>It is a period of cosmic exploration. Brave spacefarers, striking from hidden bases, have won their first victory against the vast unknown.</p>
+            <p>During their journeys, these explorers managed to discover the secrets of the universe, a system with enough power to manage an entire galactic fleet.</p>
+            <p>The fate of the galaxy now rests on a single challenge: can our hero create the application to manage the fleet in time and secure victory....</p>        </div>
+    </div>
+    
+    <!-- Button to navigate to the Fiori App -->
+    <div class="start-button-container">
+        <a href="/spacefarerapp/index.html" 
+           class="btn-enter inline-block hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider">
+            Start Adventure
+        </a>
+    </div>
+
+    <script>
+        // Generate static twinkling stars
+        const starContainer = document.getElementById('star-container');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            const size = Math.random() * 2.5;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            star.style.animationDuration = `${2 + Math.random() * 3}s`;
+            starContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
+

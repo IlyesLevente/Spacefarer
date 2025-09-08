@@ -7,12 +7,10 @@ entity Spacefarers : cuid, managed {
 firstName              : String(100) not null;
 lastName               : String(100) not null;
 email                  : String(255) not null;
-// Cosmic fields
 stardustCollection     : Integer default 0;
 wormholeNavigationSkill: Integer default 1;
 originPlanet           : String(100) not null;
 spacesuitColor         : String(50) default 'Silver';
-// Relationships
 department_ID          : Integer;
 position_ID            : Integer;
 department             : Association to Departments on department.ID = $self.department_ID;
@@ -77,7 +75,6 @@ annotate GalacticSpacefarerService.Spacefarers with @(
     }
 );
 
-// Add Value Help annotations to the new ID fields
 annotate GalacticSpacefarerService.Spacefarers with {
     department_ID @(Common : {
         Label : 'Department',

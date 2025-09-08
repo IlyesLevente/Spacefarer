@@ -57,6 +57,14 @@ module.exports = cds.service.impl(async function() {
         req.error(400, 'Wormhole navigation skill must be between 1 and 10');
       }
     }
+
+    if (req.event === 'CREATE' && spacefarer.stardustCollection > 100) {
+      spacefarer.wormholeNavigationSkill = Math.min(
+        (spacefarer.wormholeNavigationSkill || 1) + 1, 
+        10 
+      );
+      console.log('✨ Navigation skills enhanced due to high stardust collection!');
+    }
     
     console.log('✅ Cosmic preparation complete!');
   });

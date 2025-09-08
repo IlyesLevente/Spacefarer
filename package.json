@@ -77,7 +77,8 @@
           "url": "db/star-cluster.db"
         }
       }
-    }
+    },
+    "welcome": "app/index.html"
   },
   "scripts": {
     "start": "cds-serve",
