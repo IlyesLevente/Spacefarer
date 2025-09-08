@@ -4,31 +4,6 @@ module.exports = cds.service.impl(async function() {
   
   const { Spacefarers } = this.entities;
 
-  // Planet-based access control for READ operations
-  this.before('READ', Spacefarers, async (req) => {
-    const userPlanet = req.user?.attr?.planet;
-    console.log(`🌍 PLANET ACCESS CHECK: User ${req.user?.id} from planet ${userPlanet}`);
-
-    if (userPlanet === 'Planet X') {
-      const blockFilter = [
-        { ref: ['originPlanet'] }, '!=', { val: 'Planet Y' }
-      ];
-
-      if (req.query.SELECT.where) {
-        req.query.SELECT.where = [
-          '(', ...req.query.SELECT.where, ')',
-          'and', ...blockFilter
-        ];
-      } else {
-        req.query.SELECT.where = blockFilter;
-      }
-
-      console.log(`🛡️ Planet X detected → blocking access to Planet Y spacefarers`);
-    } else {
-      console.log(`✅ No planet-based restrictions applied`);
-    }
-  });
-
   this.before(['CREATE', 'UPDATE'], Spacefarers, async (req) => {
     const spacefarer = req.data;
     
@@ -58,6 +33,7 @@ module.exports = cds.service.impl(async function() {
       }
     }
 
+    // Auto-increment navigation skill for high stardust collectors
     if (req.event === 'CREATE' && spacefarer.stardustCollection > 100) {
       spacefarer.wormholeNavigationSkill = Math.min(
         (spacefarer.wormholeNavigationSkill || 1) + 1, 
