@@ -4,32 +4,32 @@ using { cuid, managed } from '@sap/cds/common';
 using GalacticSpacefarerService from '../srv/galactic-service';
 
 entity Spacefarers : cuid, managed {
-firstName              : String(100) not null;
-lastName               : String(100) not null;
-email                  : String(255) not null;
-stardustCollection     : Integer default 0;
-wormholeNavigationSkill: Integer default 1;
-originPlanet           : String(100) not null;
-spacesuitColor         : String(50) default 'Silver';
-department_ID          : Integer;
-position_ID            : Integer;
-department             : Association to Departments on department.ID = $self.department_ID;
-position               : Association to Positions on position.ID = $self.position_ID;
-adventureStatus       : String(20) default 'Preparing';
+    firstName              : String(100) not null;
+    lastName               : String(100) not null;
+    email                  : String(255) not null;
+    stardustCollection     : Integer default 0;
+    wormholeNavigationSkill: Integer default 1;
+    originPlanet           : String(100) not null;
+    spacesuitColor         : String(50) default 'Silver';
+    department_ID          : Integer;
+    position_ID            : Integer;
+    department             : Association to Departments on department.ID = $self.department_ID;
+    position               : Association to Positions on position.ID = $self.position_ID;
+    adventureStatus        : String(20) default 'Preparing';
 }
 
 entity Departments {
-key ID               : Integer;
-name                 : String(100) not null;
-description          : String(500);
-spacefarers          : Association to many Spacefarers on spacefarers.department_ID = $self.ID;
+    key ID               : Integer;
+    name                 : String(100) not null;
+    description          : String(500);
+    spacefarers          : Association to many Spacefarers on spacefarers.department_ID = $self.ID;
 }
 
 entity Positions {
-key ID              : Integer;
-title               : String(100) not null;
-description         : String(500);
-spacefarers         : Association to many Spacefarers on spacefarers.position_ID = $self.ID;
+    key ID              : Integer;
+    title               : String(100) not null;
+    description         : String(500);
+    spacefarers         : Association to many Spacefarers on spacefarers.position_ID = $self.ID;
 }
 
 annotate GalacticSpacefarerService.Spacefarers with @(

@@ -16,7 +16,6 @@
             height: 100vh;
         }
 
-        /* --- Starfield Background --- */
         .starfield {
             position: fixed;
             top: 0;
@@ -38,13 +37,12 @@
             50% { opacity: 1; }
         }
 
-        /* --- Crawl Animation --- */
         .crawl-container {
             position: absolute;
             bottom: 0;
             width: 100%;
             height: 200vh;
-            perspective: 800px; /* Restored for 3D effect */
+            perspective: 800px; 
             z-index: 10;
         }
         .crawl-content {
@@ -55,32 +53,31 @@
             transform-origin: 50% 100%;
             color: #ffc909;
             text-align: justify;
-            animation: crawl 60s linear forwards; /* Moderated speed */
+            animation: crawl 60s linear forwards; 
         }
         @keyframes crawl {
             0% { top: 100%; transform: rotateX(20deg) translateZ(0); }
-            100% { top: -150%; transform: rotateX(25deg) translateZ(-4000px); } /* Restored 3D transform */
+            100% { top: -150%; transform: rotateX(25deg) translateZ(-4000px); } 
         }
         .crawl-content h1, .crawl-content h2 {
             text-align: center;
         }
         .crawl-content h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 5em; /* Moderated size */
+            font-size: 5em;
             margin-bottom: 0.5em;
         }
         .crawl-content h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4em; /* Moderated size */
+            font-size: 4em; 
             margin-bottom: 1em;
         }
         .crawl-content p {
-            font-size: 2.2rem; /* Moderated size */
+            font-size: 2.2rem; 
             line-height: 1.5;
             margin-bottom: 1.5em;
         }
 
-        /* --- Button --- */
         .start-button-container {
             position: fixed;
             bottom: 5%;
@@ -102,10 +99,8 @@
     </style>
 </head>
 <body>
-    <!-- Star background container -->
     <div class="starfield" id="star-container"></div>
 
-    <!-- Scrolling Text -->
     <div class="crawl-container">
         <div class="crawl-content">
             <h1>GALACTIC SPACEFARER</h1>
@@ -116,7 +111,6 @@
             <p>The fate of the galaxy now rests on a single challenge: can our hero create the application to manage the fleet in time and secure victory....</p>        </div>
     </div>
     
-    <!-- Button to navigate to the Fiori App -->
     <div class="start-button-container">
         <a href="/spacefarerapp/index.html" 
            class="btn-enter inline-block hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider">
@@ -125,7 +119,6 @@
     </div>
 
     <script>
-        // Generate static twinkling stars
         const starContainer = document.getElementById('star-container');
         for (let i = 0; i < 200; i++) {
             const star = document.createElement('div');
