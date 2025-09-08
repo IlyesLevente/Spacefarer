@@ -1,7 +1,7 @@
 {
   "_version": "1.76.0",
   "sap.app": {
-    "id": "galactic.spacefarerapp",
+    "id": "spacefarerapp",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.18.6",
-      "toolsId": "5108a6e9-a16a-4ca8-b75d-842c455cd74f"
+      "toolsId": "4d70dcf0-5571-4da6-86cc-16cb5766672e"
     },
     "dataSources": {
       "mainService": {
@@ -60,7 +60,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "galactic.spacefarerapp.i18n.i18n"
+          "bundleName": "spacefarerapp.i18n.i18n"
         }
       },
       "": {

@@ -1,2 +1,2 @@
 
-using from './spacefarer-app/annotations';
+using from './spacefarerapp/annotations';

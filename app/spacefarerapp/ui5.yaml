@@ -2,7 +2,7 @@
 
 specVersion: "3.1"
 metadata:
-  name: galactic.spacefarerapp
+  name: spacefarerapp
 type: application
 server:
   customMiddleware:

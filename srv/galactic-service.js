@@ -10,7 +10,6 @@ module.exports = cds.service.impl(async function() {
     console.log(`🌍 PLANET ACCESS CHECK: User ${req.user?.id} from planet ${userPlanet}`);
 
     if (userPlanet === 'Planet X') {
-      // Build a filter: originPlanet != 'Planet Y'
       const blockFilter = [
         { ref: ['originPlanet'] }, '!=', { val: 'Planet Y' }
       ];
@@ -30,46 +29,12 @@ module.exports = cds.service.impl(async function() {
     }
   });
 
-    this.before(['CREATE', 'UPDATE', 'DELETE'], Spacefarers, async (req) => {
-    
-    const user = req.user;
-    const operation = req.event;
-    
-    // Check role-based permissions
-    const hasAdminRole = user.is('CosmicAdministrator');
-    const hasManagerRole = user.is('SpacefarerManager'); 
-    const hasRecruiterRole = user.is('SpacefarerRecruiter');
-    
-    switch (operation) {
-      case 'DELETE':
-        if (!hasAdminRole) {
-          req.error(403, '🚫 Only Cosmic Administrators can delete spacefarers!');
-        }
-        break;
-        
-      case 'UPDATE':
-        if (!hasAdminRole && !hasManagerRole) {
-          req.error(403, '🚫 Only Managers and Administrators can update spacefarer records!');
-        }
-        break;
-        
-      case 'CREATE':
-        if (!hasAdminRole && !hasManagerRole && !hasRecruiterRole) {
-          req.error(403, '🚫 Insufficient permissions to recruit new spacefarers!');
-        }
-        break;
-    }
-    
-    console.log(`✅ Permission granted for ${operation} operation`);
-  });
-  
-    this.before(['CREATE', 'UPDATE'], Spacefarers, async (req) => {
+  this.before(['CREATE', 'UPDATE'], Spacefarers, async (req) => {
     const spacefarer = req.data;
     
     console.log('🌟 COSMIC PREPARATION: Preparing spacefarer for journey');
     console.log('Received data:', JSON.stringify(spacefarer, null, 2));
     
-    // Provide defaults for required fields if missing
     if (req.event === 'CREATE') {
       spacefarer.firstName = spacefarer.firstName || 'Unknown';
       spacefarer.lastName = spacefarer.lastName || 'Spacefarer';
@@ -93,19 +58,9 @@ module.exports = cds.service.impl(async function() {
       }
     }
     
-    // Enhance skills based on stardust collection
-    if (req.event === 'CREATE' && spacefarer.stardustCollection > 100) {
-      spacefarer.wormholeNavigationSkill = Math.min(
-        (spacefarer.wormholeNavigationSkill || 1) + 1, 
-        10
-      );
-      console.log('✨ Navigation skills enhanced due to high stardust collection!');
-    }
-    
     console.log('✅ Cosmic preparation complete!');
   });
   
-  // @After event: Send cosmic notification
   this.after('CREATE', Spacefarers, async (spacefarer, req) => {
     console.log('🌟 COSMIC NOTIFICATION: Sending welcome message');
     

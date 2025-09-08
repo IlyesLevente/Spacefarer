@@ -8,8 +8,9 @@ service GalacticSpacefarerService @(requires: 'authenticated-user') {
     { grant: ['READ'], to: 'SpacefarerViewer' },
     { grant: ['READ', 'CREATE'], to: 'SpacefarerRecruiter' },  
     { grant: ['READ', 'CREATE', 'UPDATE'], to: 'SpacefarerManager' },
-    { grant: ['READ', 'CREATE', 'UPDATE', 'DELETE'], to: 'CosmicAdministrator' }
+    { grant: '*', to: 'CosmicAdministrator' }
   ]
+  @odata.draft.enabled
   entity Spacefarers as projection on galactic.Spacefarers;
     
   // Departments - read access for all authenticated users

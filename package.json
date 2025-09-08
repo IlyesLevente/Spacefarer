@@ -17,53 +17,77 @@
         "users": {
           "luke.skywalker@galaxy.com": {
             "password": "force123",
-            "roles": ["CosmicAdministrator"],
-            "attr": { "planet": "Planet Y" }
+            "roles": [
+              "CosmicAdministrator"
+            ],
+            "attr": {
+              "planet": "Planet Y"
+            }
           },
           "leia.skywalker@galaxy.com": {
             "password": "force123",
-            "roles": ["CosmicAdministrator"],
-            "attr": { "planet": "Planet X" }
+            "roles": [
+              "CosmicAdministrator"
+            ],
+            "attr": {
+              "planet": "Planet X"
+            }
           },
           "han.solo@galaxy.com": {
             "password": "millennium",
-            "roles": ["SpacefarerManager"],
-            "attr": { "planet": "Corellia" }
+            "roles": [
+              "SpacefarerManager"
+            ],
+            "attr": {
+              "planet": "Corellia"
+            }
           },
           "leia.organa@galaxy.com": {
             "password": "rebellion",
-            "roles": ["SpacefarerRecruiter"],
-            "attr": { "planet": "Alderaan" }
+            "roles": [
+              "SpacefarerRecruiter"
+            ],
+            "attr": {
+              "planet": "Alderaan"
+            }
           },
           "chewbacca@galaxy.com": {
             "password": "wookie123",
-            "roles": ["SpacefarerViewer"],
-            "attr": { "planet": "Kashyyyk" }
+            "roles": [
+              "SpacefarerViewer"
+            ],
+            "attr": {
+              "planet": "Kashyyyk"
+            }
           },
           "cosmic_invader@deathstar.evil": {
             "password": "darth123",
-            "roles": ["EvilInvader"],
-            "attr": { "planet": "DeathStar" }
+            "roles": [
+              "EvilInvader"
+            ],
+            "attr": {
+              "planet": "DeathStar"
+            }
           }
         }
       },
       "db": {
         "kind": "sqlite",
         "credentials": {
-          "url": "star-cluster.db"
+          "url": "db/star-cluster.db"
         }
       }
     }
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-spacefarer-app": "cds watch --open galactic.spacefarerapp/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-spacefarerapp": "cds watch --open spacefarerapp/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
     "app/*"
   ],
   "sapux": [
-    "app/spacefarer-app"
+    "app/spacefarerapp"
   ]
 }
